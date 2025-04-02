@@ -1,15 +1,14 @@
 import React from 'react';
 import Meals from './components/Meals';
 import Header from './components/Header';
+import { CartProvider } from './store/CartContext';
 
 const App = () => {
  return (
-    <div>
-        <Header />
-        <main>
-          <Meals />
-        </main>
-    </div>
+  <CartProvider>
+    <Header />
+    <Meals />
+  </CartProvider>
   );
 };
 
