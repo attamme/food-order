@@ -1,6 +1,6 @@
 const MealItem = ({ meal }) => {
 
-    const price = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'EUR' }).format(meal.price)
+    const price = new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(meal.price)
 
     return (
         <li className="meal-item">
