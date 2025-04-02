@@ -1,9 +1,11 @@
+import { clear } from "@testing-library/user-event/dist/clear";
 import React, { createContext, useReducer } from "react";
 
 const CartContext = createContext({
     items: [],
     totalAmount: 0,
     addItem: () => {},
+    clearCart: () => {},
 });
 
 const CartReducer = (state, action) => {
@@ -27,6 +29,14 @@ const CartReducer = (state, action) => {
         totalAmount: updatedItems.reduce((sum, item) => sum + item.quantity, 0),
     };
 }
+
+if (action.type === "CLEAR_CART") {
+    return {
+        items: [],
+        totalAmount: 0,
+    };
+}
+
 return state
 }
 
@@ -40,12 +50,17 @@ export const CartProvider = ({ children }) => {
         dispatchCartAction({ type: "ADD_ITEM", item });
     };
 
+    const clearCartHandler = () => {
+        dispatchCartAction({ type: "CLEAR_CART" });
+    };
+
     return (
         <CartContext.Provider 
         value={{
             items: cartState.items,
             totalAmount: cartState.totalAmount,
-            addItem: addItemHandler
+            addItem: addItemHandler,
+            clearCart: clearCartHandler,
         }}>
             {children}
         </CartContext.Provider>

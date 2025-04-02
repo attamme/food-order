@@ -1,23 +1,31 @@
 import logo from '../assets/logo.jpg'
 import Button from './UI/Button'
 import CartContext from '../store/CartContext'
-import { useContext, useEffect } from 'react'
+import Modal from './UI/Modal'
+import { useContext, useEffect, useState } from 'react'
 
 const Header = () => {
     const { items, totalAmount} = useContext(CartContext)
-    useEffect(() => {
-        console.log('Current cart items: ', items)
-    }, [items])
+    const [isModalOpen, setModalOpen] = useState(false)
+
+    const handleModalOpen = () => {
+        setModalOpen(true)
+    }
+    const handleModalClose = () => {
+        setModalOpen(false)
+    }
+    
     return (
         <header id="main-header">
             <div id="title">
-                <img src={logo}/>
+                <img src={logo} alt='logo'/>
                 <h1>React Food Order App</h1>
             </div>
             <nav>
-                <Button textOnly>Cart ({totalAmount})</Button>
+                <Button textOnly onClick={handleModalOpen}>Cart ({totalAmount})</Button>
                 {console.log({totalAmount})}
             </nav>
+            <Modal isOpen={isModalOpen} closeModal={handleModalClose} />
         </header>
     )
 }
